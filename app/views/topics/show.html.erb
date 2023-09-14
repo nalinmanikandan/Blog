@@ -1,7 +1,16 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @topic %>
-
+<h2>Posts under <%= @topic.title %></h2>
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <%= link_to post.title, topic_post_path(@topic, post) %>
+      <!-- Display other post attributes as needed -->
+    </li>
+  <% end %>
+</ul>
+<%= link_to "New post", new_topic_post_path(@topic) %>
 <div>
   <%= link_to "Edit this topic", edit_topic_path(@topic) %> |
   <%= link_to "Back to topics", topics_path %>

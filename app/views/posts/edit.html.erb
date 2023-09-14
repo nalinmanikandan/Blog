@@ -1,0 +1,10 @@
+<h1>Editing post</h1>
+
+<%= render "form", post: @post %>
+
+<br>
+
+<div>
+  <%= link_to "Back to Post", topic_post_path(@topic, @post) %> |
+  <%= link_to "Back to Topic", topic_path(@topic) %>
+</div>
