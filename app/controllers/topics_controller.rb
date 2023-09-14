@@ -51,8 +51,9 @@ class TopicsController < ApplicationController
 
   # DELETE /topics/1 or /topics/1.json
   def destroy
+    @topic = Topic.find(params[:id])
+    @topic.posts.destroy_all
     @topic.destroy
-
     respond_to do |format|
       format.html { redirect_to topics_url, notice: "Topic was successfully destroyed." }
       format.json { head :no_content }
