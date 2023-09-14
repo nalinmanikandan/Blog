@@ -1,7 +1,8 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @post %>
-
+<%= link_to "Add Comments", new_topic_post_comment_path(@topic,@post) %>
+<%= link_to "View Comments", topic_post_comments_path(@topic, @post) %>
 <div>
   <%= link_to "Edit", edit_topic_post_path(@topic, @post) %> |
   <%= link_to "Back to topic", topic_path(@topic) %>

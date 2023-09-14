@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Comments</h1>
+<h1>Comments for <%= @topic.title %> - <%= @post.title %></h1>
+<h2><% @post.title %></h2>
+<div id="comments">
+  <% @comments.each do |comment| %>
+    <%= render comment %>
+    <%= link_to "View Comment", topic_post_comment_path(@topic, @post, comment) %> |
+
+  <% end %>
+</div>
+
+
