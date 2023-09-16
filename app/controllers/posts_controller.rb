@@ -5,10 +5,13 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all
   end
-
+  def tag_list
+    self.tags.pluck(:name).join(", ")
+  end
   # GET /posts/1 or /posts/1.json
   def show
     @post = @topic.posts.find(params[:id])
+    @tags = @post.tags
   end
 
   # GET /posts/new
@@ -24,8 +27,8 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
-    @post = @topic.posts.build(post_params)
-
+    @post = @topic.posts.build(post_params.except(:tags))
+    create_or_delete_posts_tags(@post, params[:post][:tags])
     respond_to do |format|
       if @post.save
         format.html { redirect_to topics_path(@topic), notice: "Post was successfully created." }
@@ -40,8 +43,9 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
     @post = @topic.posts.find(params[:id])
+    create_or_delete_posts_tags(@post, params[:post][:tags])
     respond_to do |format|
-      if @post.update(post_params)
+      if @post.update(post_params.except(:tags))
         format.html { redirect_to topic_post_path(@topic,@post), notice: "Post was successfully updated." }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -62,6 +66,14 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def create_or_delete_posts_tags(post, tags)
+    post.taggables.destroy_all
+    tags = tags.strip.split(',')
+    tags.each do |tag|
+      post.tags << Tag.find_or_create_by(name:tag)
+    end
+  end
   # Use callbacks to share common setup or constraints between actions.
   def set_post
     @post = Post.find(params[:id])
@@ -69,7 +81,7 @@ class PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:title, :content)
+    params.require(:post).permit(:title, :content, :tags)
   end
   def find_topic
     @topic = Topic.find(params[:topic_id])

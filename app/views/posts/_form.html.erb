@@ -22,7 +22,10 @@
       <%= form.label :content, style: "display: block" %>
       <%= form.text_area :content %>
     </div>
-
+    <div>
+      <%= form.label :tag,style: "display:block" %>
+      <%= form.text_field :tags, value: post.tags.map(&:name).join(",") %>
+    </div>
     <div>
       <%= form.submit %>
     </div>
