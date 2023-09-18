@@ -6,9 +6,10 @@
   <% @topics.each do |topic| %>
     <%= render topic %>
     <p>
-      <%= link_to "Show this topic", topic %>
+      <%= link_to "View Posts for this Topic", topic_posts_path(topic) %>
     </p>
   <% end %>
 </div>
 
 <%= link_to "New topic", new_topic_path %>
+<%= will_paginate(@topics) %>

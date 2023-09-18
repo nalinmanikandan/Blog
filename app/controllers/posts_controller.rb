@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :find_topic
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.paginate(page:params[:page])
   end
   def tag_list
     self.tags.pluck(:name).join(", ")

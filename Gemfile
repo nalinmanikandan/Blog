@@ -78,3 +78,5 @@ group :development, :test do
 end
 
 gem 'strong_migrations'
+
+gem 'will_paginate'

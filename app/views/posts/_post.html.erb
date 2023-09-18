@@ -10,7 +10,7 @@
   </p>
   <p>
     <strong>Tags:</strong>
-    <% @tags.each do |tag| %>
+    <% post.tags.each do |tag| %>
       <%= link_to tag.name, tag %>
     <% end %>
   </p>
