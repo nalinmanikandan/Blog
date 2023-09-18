@@ -3,14 +3,15 @@ class PostsController < ApplicationController
   before_action :find_topic
   # GET /posts or /posts.json
   def index
-    @posts = Post.paginate(page:params[:page])
+    @topic = Topic.find(params[:topic_id])
+    @posts = @topic.posts.paginate(page:params[:page])
   end
   def tag_list
     self.tags.pluck(:name).join(", ")
   end
   # GET /posts/1 or /posts/1.json
   def show
-    @post = @topic.posts.find(params[:id])
+    @post = @topic.posts.find(params[:post_id])
     @tags = @post.tags
   end
 
