@@ -11,7 +11,7 @@ class PostsController < ApplicationController
   end
   # GET /posts/1 or /posts/1.json
   def show
-    @post = @topic.posts.find(params[:post_id])
+    @post = @topic.posts.find(params[:id])
     @tags = @post.tags
   end
 
