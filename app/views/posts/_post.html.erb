@@ -3,7 +3,13 @@
     <strong>Title:</strong>
     <%= post.title %>
   </p>
-
+  <p>
+    <% if post.image.attached? %>
+      <%= image_tag(post.image, style: "width: 200px") %>
+    <% else %>
+      No image available
+    <% end %>
+  </p>
   <p>
     <strong>Content:</strong>
     <%= post.content %>

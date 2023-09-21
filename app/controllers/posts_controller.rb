@@ -82,7 +82,7 @@ class PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:title, :content, :tags)
+    params.require(:post).permit(:title, :content, :tags, :image)
   end
   def find_topic
     @topic = Topic.find(params[:topic_id])
