@@ -20,4 +20,21 @@
       <%= link_to tag.name, tag %>
     <% end %>
   </p>
+  <p>
+    <strong>Average Rating:</strong>
+    <% if post.ratings.any? %>
+      <%= @ratings.average(:value).round(2) %>
+    <% else %>
+      Not rated yet
+    <% end %>
+  </p>
+  <%= form_for([@topic,post, Rating.new]) do |f| %>
+    <div class="field">
+      <%= f.label "Rate this post:" %>
+      <%= f.collection_radio_buttons :value, [[1, '1'], [2, '2'], [3, '3'], [4, '4'], [5, '5']], :first, :last %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Submit Rating" %>
+    </div>
+  <% end %>
 </div>

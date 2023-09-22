@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   def index
     @topic = Topic.find(params[:topic_id])
     @posts = @topic.posts.paginate(page:params[:page])
+    @ratings = Rating.where(post: @posts)
   end
   def tag_list
     self.tags.pluck(:name).join(", ")
@@ -13,6 +14,8 @@ class PostsController < ApplicationController
   def show
     @post = @topic.posts.find(params[:id])
     @tags = @post.tags
+    @posts = @topic.posts
+    @ratings = Rating.where(post: @posts)
   end
 
   # GET /posts/new
@@ -82,7 +85,7 @@ class PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:title, :content, :tags, :image)
+    params.require(:post).permit(:title, :content, :tags, :image, :ratings)
   end
   def find_topic
     @topic = Topic.find(params[:topic_id])

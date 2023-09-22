@@ -5,7 +5,7 @@
 <%= link_to "View Comments", topic_post_comments_path(@topic, @post) %>
 <div>
   <%= link_to "Edit", edit_topic_post_path(@topic, @post) %> |
-  <%= link_to "Back to topic", topic_path(@topic) %>
+  <%= link_to "Back to topic", topics_path(@topic) %>
 
   <%= button_to "Destroy this post", topic_post_path(@topic, @post), method: :delete %>
 </div>
