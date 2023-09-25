@@ -5,6 +5,13 @@
   </p>
   <% tag.taggables.each do |taggable| %>
     <h2>Post:</h2>
-    <%= render 'posts/post', post:taggable.post %>
+    <div>
+      <span>Title : </span>
+      <%= taggable.post.title %>
+    </div>
+    <div>
+      <span>Conteent : </span>
+      <%= taggable.post.content %>
+    </div>
   <% end %>
 </div>

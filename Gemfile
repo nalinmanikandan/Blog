@@ -80,3 +80,5 @@ end
 gem 'strong_migrations'
 
 gem 'will_paginate'
+
+gem 'devise'

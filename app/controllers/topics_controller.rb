@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: %i[ show edit update destroy ]
-
+  before_action :authenticate_user!, only: %i[index show edit update destroy ]
   # GET /topics or /topics.json
   def index
     @topics = Topic.paginate(page: params[:page])

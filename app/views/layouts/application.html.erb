@@ -11,6 +11,24 @@
   </head>
 
   <body>
+  <div class="container-fluid">
+    <div class="navbar">
+      <div class="current-user">
+        <strong style="font-size: 18px">BlogsOfBharat</strong>
+      </div>
+      <div class="navbar-links">
+        <% if user_signed_in? %>
+          <strong class="current-user"><%= current_user.email %></strong>
+          <%= link_to 'Edit Profile', edit_user_registration_path %>
+          <!--<%= link_to 'Logout', destroy_user_session_path, method: :delete %>-->
+          <%= button_to "Logout", destroy_user_session_path, method: :delete, class: 'logout-btn' %>
+        <% else %>
+          <%= link_to 'Sign Up', new_user_registration_path %>
+          <%= link_to 'Login', new_user_session_path %>
+        <% end %>
+      </div>
+    </div>
     <%= yield %>
+  </div>
   </body>
 </html>
