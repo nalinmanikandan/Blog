@@ -3,6 +3,13 @@
     <strong>Title:</strong>
     <%= post.title %>
   </p>
+  <% if post.user.present? %>
+    <p>
+      <strong>User:</strong>
+      <%= post.user.email %>
+    </p>
+  <% end %>
+
   <p>
     <% if post.image.attached? %>
       <%= image_tag(post.image, style: "width: 200px") %>

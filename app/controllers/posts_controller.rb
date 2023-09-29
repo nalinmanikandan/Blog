@@ -32,6 +32,7 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = @topic.posts.build(post_params.except(:tags))
+    @post.user = current_user
     create_or_delete_posts_tags(@post, params[:post][:tags])
     respond_to do |format|
       if @post.save

@@ -1,4 +1,10 @@
 <div id="<%= dom_id comment %>">
+  <% if comment.user.present? %>
+    <p>
+      <strong>User:</strong>
+      <%= comment.user.email %>
+    </p>
+  <% end %>
   <p>
     <strong>Body:</strong>
     <%= comment.body %>
