@@ -4,7 +4,6 @@
 
 <div id="posts">
   <% @posts.each do |post| %>
-    <!--<%= render post %>-->
     <p>
       <strong>Title:</strong>
       <%= post.title %>
@@ -12,6 +11,9 @@
     <p>
       <strong>Content:</strong>
       <%= post.content %>
+    </p>
+    <p>
+      <%= @comments_count[post.id] || 0 %> comments
     </p>
     <p>
       <%= link_to "Show this post",topic_post_path(@topic,post)  %>
