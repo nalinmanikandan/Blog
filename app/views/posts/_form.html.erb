@@ -1,41 +1,91 @@
-
-
-  </div><%= form_with(model: [@topic,@post]) do |form| %>
-    <% if post.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<div class="container">
+  <%= form_with(model: [@topic, @post], local: true) do |form| %>
+    <% if @post.errors.any? %>
+      <div class="alert alert-danger">
+        <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
         <ul>
-          <% post.errors.each do |error| %>
-            <li><%= error.full_message %></li>
+          <% @post.errors.full_messages.each do |error| %>
+            <li><%= error %></li>
           <% end %>
         </ul>
       </div>
     <% end %>
-
-    <div>
-      <%= form.label :title, style: "display: block" %>
-      <%= form.text_field :title %>
+    <div class="mb-3 title" >
+      <p style="margin-bottom: 10px">New Post under<%= @topic.title %></p>
+    </div>
+    <div class="mb-3" style="margin-bottom: 10px">
+      <span><%= form.label :title, class: "form-label" %></span> : <%= form.text_field :title, class: "form-control"  %>
     </div>
 
-    <div>
-      <%= form.label :content, style: "display: block" %>
-      <%= form.text_area :content %>
+    <div class="mb-3" style="margin-bottom: 10px">
+      <span><%= form.label :content, class: "form-label" %></span> : <%= form.text_area :content, class: "form-control" %>
     </div>
-    <div class="field">
-      <%= form.label :image, 'Upload Image' %>
-      <%= form.file_field :image %>
+
+    <div class="field" style="margin-bottom: 10px">
+      <span><%= form.label :image, 'Upload Image', class: "form-label" %></span> : <%= form.file_field :image, class: "form-control" %>
     </div>
-    <div>
-      <%= form.label :tag,style: "display:block" %>
-      <%= form.text_field :tags, value: post.tags.map(&:name).join(",") %>
+
+    <div class="mb-3" style="margin-bottom: 10px">
+      <span><%= form.label :tag, class: "form-label" %></span> : <%= form.text_field :tags, value: @post.tags.map(&:name).join(","), class: "form-control" %>
     </div>
-    <div>
-      <%= form.submit %>
+
+    <div class="mb d-flex">
+      <span class="createpost"><%= form.submit "Create Post", class: "btn btn-primary" %></span>
+      <span><%= link_to "Back to topic", topics_path(@topic), class: "btn btn-secondary btn-back" %></span>
     </div>
   <% end %>
+</div>
+<style>
+    .createpost{
+        margin-top: 10px;
+    }
+    .title{
+        margin: 30px 0;
+        font-size: 18px;
+        font-weight: bolder;
+    }
+    /* Custom CSS for centering the form */
+    span{
+        padding-bottom: 15px;
+    }
+    .d-flex{
+        display: flex;
+        justify-content: space-between;
+        text-decoration: none;
+        text-underline: none;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        font-size: 14px; /* Set the default font size to 14px */
+    }
 
+    .container {
+        display: flex;
+        justify-content: center;
+        min-height: 100vh;
+    }
 
+    h1 {
+        color: #007bff;
+        font-size: 14px;
+    }
+    .form-label {
+        font-weight: bold;
+        margin-top: 15px;
+    }
 
+    .form-control {
+        width: 100%;
+    }
 
+    .field {
+        margin-top: 10px;
+    }
 
+    .btn-back {
+        margin-top: 10px;
+    }
+</style>

@@ -13,3 +13,52 @@
  *= require_tree .
  *= require_self
  */
+*{
+    padding:0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Helvetica;
+}
+.container-fluid{
+    width: 100%;
+}
+table.table-striped th{
+    width: 15%;
+}
+table.table-striped th, table.table-striped td {
+    padding-left: 15px;
+}
+#topics .container-fluid {
+    padding-left: 50px;
+}
+.green-text {
+    color: green;
+}
+.headings{
+    padding-left: 15px;
+    font-size: 20px;
+}
+.new-topic-button {
+    margin-left: 15px;
+}
+.pagination {
+    display: flex;
+    justify-content: center; /* Center align pagination */
+    align-items: center;
+    margin-top: 10px;
+}
+
+.pagination .page-item {
+    margin: 0 3px; /* Adjust spacing between page items */
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff; /* Active page background color */
+    border-color: #007bff; /* Active page border color */
+    color: #fff; /* Active page text color */
+}
+.d-flex{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}

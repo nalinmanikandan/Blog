@@ -1,34 +1,79 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Blogreal2</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Blogreal2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+  <style>
+      /* Custom CSS for full-width page */
+      body {
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif; /* Change the font if needed */
+      }
 
-  <body>
-  <div class="container-fluid">
-    <div class="navbar">
-      <div class="current-user">
-        <strong style="font-size: 18px">BlogsOfBharat</strong>
-      </div>
-      <div class="navbar-links">
-        <% if user_signed_in? %>
-          <strong class="current-user"><%= current_user.email %></strong>
-          <%= link_to 'Edit Profile', edit_user_registration_path %>
-          <!--<%= link_to 'Logout', destroy_user_session_path, method: :delete %>-->
-          <%= button_to "Logout", destroy_user_session_path, method: :delete, class: 'logout-btn' %>
-        <% else %>
-          <%= link_to 'Sign Up', new_user_registration_path %>
-          <%= link_to 'Login', new_user_session_path %>
-        <% end %>
-      </div>
+      .container-fluid {
+          padding: 20px;
+      }
+
+      .navbar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background-color: #007bff;
+          color: #fff;
+          padding: 10px 20px;
+      }
+
+      .navbar-links {
+          display: flex;
+          gap: 10px;
+      }
+
+      .navbar-links a,
+      .logout-btn {
+          color: #fff;
+          text-decoration: none;
+          padding: 5px 10px;
+          margin-left: auto;
+      }
+      .logout-btn{
+          background-color: #2E2F30;
+      }
+      .current-user {
+          font-weight: bold;
+          margin-right: auto;
+          padding-top: 5px;
+      }
+  </style>
+</head>
+
+<body>
+<div class="container-fluid">
+  <div class="navbar">
+    <div class="current-user">
+      <strong style="font-size: 18px">BlogsOfBharat</strong>
     </div>
-    <%= yield %>
+    <div class="navbar-links">
+      <% if user_signed_in? %>
+        <strong class="current-user"><%= current_user.email %></strong>
+        <%= link_to 'Edit Profile', edit_user_registration_path %>
+        <!--<%= link_to 'Logout', destroy_user_session_path, method: :delete %>-->
+        <%= button_to "Logout", destroy_user_session_path, method: :delete, class: 'logout-btn' %>
+      <% else %>
+        <%= link_to 'Sign Up', new_user_registration_path %>
+        <%= link_to 'Login', new_user_session_path %>
+      <% end %>
+    </div>
   </div>
-  </body>
+  <%= yield %>
+</div>
+</body>
 </html>
+
+
+

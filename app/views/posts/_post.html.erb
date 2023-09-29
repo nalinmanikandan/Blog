@@ -1,47 +1,114 @@
-<div id="<%= dom_id post %>">
-  <p>
-    <strong>Title:</strong>
-    <%= post.title %>
-  </p>
-  <% if post.user.present? %>
-    <p>
-      <strong>User:</strong>
-      <%= post.user.email %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<div class="container-fluid">
+  <div id="<%= dom_id(post) %>" class="col-md-6">
+    <p class="post-title">
+      <strong>Title:</strong>
+      <%= post.title %>
     </p>
-  <% end %>
-
-  <p>
-    <% if post.image.attached? %>
-      <%= image_tag(post.image, style: "width: 200px") %>
-    <% else %>
-      No image available
+    <% if post.user.present? %>
+      <p>
+        <strong>User:</strong>
+        <%= post.user.email %>
+      </p>
     <% end %>
-  </p>
-  <p>
-    <strong>Content:</strong>
-    <%= post.content %>
-  </p>
-  <p>
-    <strong>Tags:</strong>
-    <% post.tags.each do |tag| %>
-      <%= link_to tag.name, tag %>
-    <% end %>
-  </p>
-  <p>
-    <strong>Average Rating:</strong>
-    <% if post.ratings.any? %>
-      <%= @ratings.average(:value).round(2) %>
-    <% else %>
-      Not rated yet
-    <% end %>
-  </p>
-  <%= form_with(model:[@topic,post, Rating.new]) do |f| %>
-    <div class="field">
-      <%= f.label "Rate this post:" %>
-      <%= f.collection_radio_buttons :value, [[1, '1'], [2, '2'], [3, '3'], [4, '4'], [5, '5']], :first, :last %>
+    <div class="image-container">
+      <% if post.image.attached? %>
+        <%= image_tag(post.image, style: "width: 200px") %>
+      <% else %>
+        No image available
+      <% end %>
     </div>
-    <div class="actions">
-      <%= f.submit "Submit Rating" %>
-    </div>
-  <% end %>
+    <p class="post-content">
+      <strong>Content:</strong>
+      <%= post.content %>
+    </p>
+    <p class="tags">
+      <strong>Tags:</strong>
+      <% post.tags.each do |tag| %>
+        <%= link_to tag.name, tag, class: "badge badge-primary mr-2" %>
+      <% end %>
+    </p>
+    <p class="average-rating">
+      <strong>Average Rating:</strong>
+      <% if post.ratings.any? %>
+        <% rating_value = @ratings.average(:value).round(2) %>
+        <span class="star-rating">&#9733;</span> <%= rating_value %>
+      <% else %>
+        Not rated yet
+      <% end %>
+    </p>
+    <%= form_for([@topic, post, Rating.new], html: { class: "rating-form" }) do |f| %>
+      <div class="form-group">
+        <%= f.label "Rate this post:" %>
+        <%= f.collection_radio_buttons :value, [[1, '1'], [2, '2'], [3, '3'], [4, '4'], [5, '5']], :first, :last, class: "form-check-input" %>
+      </div>
+      <div class="form-group">
+        <%= f.submit "Submit Rating", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
 </div>
+<style>
+    /* Custom CSS for centering the content */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        font-size: 14px; /* Set the default font size to 14px */
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    /* Style the content */
+    #<%= dom_id(post) %> {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-title {
+        font-size: 16px; /* Set the font size for the post title */
+        font-weight: bold;
+    }
+
+    .image-container {
+        margin-top: 10px;
+    }
+
+    .post-content {
+        margin-top: 10px;
+    }
+
+    .tags {
+        margin-top: 10px;
+    }
+
+    .average-rating {
+        margin-top: 10px;
+    }
+
+    .rating-form {
+        margin-top: 10px;
+    }
+
+    /* Style the form elements */
+    .field {
+        margin-top: 10px;
+    }
+
+    /* Style the submit button */
+    .actions {
+        margin-top: 10px;
+    }
+
+    /* Custom CSS for star rating */
+    .star-rating {
+        color: #f39c12; /* Star color */
+    }
+
+</style>

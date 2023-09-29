@@ -1,15 +1,28 @@
-<p style="color: green"><%= notice %></p>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<h1>Topics</h1>
-
-<div id="topics">
-  <% @topics.each do |topic| %>
-    <%= render topic %>
-    <p>
-      <%= link_to "View Posts for this Topic", topic_posts_path(topic) %>
-    </p>
-  <% end %>
+<div id="topics" class="container-fluid">
+  <p style="color: green;" class="green-text"><%= notice %></p>
+  <h1 class="headings">Topics</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th colspan="2" style="padding-left: 20px">Name</th>
+      <th>Description</th>
+      <th colspan="2"></th>
+    </tr>
+    </thead>
+    <tbody >
+    <% @topics.each do |topic| %>
+      <tr >
+        <td colspan="2" style="padding-left: 20px"><%= topic.title %></td>
+        <td width="70%"><%= topic.description %></td>
+        <td colspan="2"><%= link_to "View &#128214;".html_safe, topic_posts_path(topic), class: "btn btn-primary" %></td>
+        <td colspan="2"><%= link_to "Edit &#128393".html_safe, edit_topic_path(topic), class: "btn btn-warning" %></td>
+        <td colspan="2"><%= button_to "Destroy &#128465".html_safe, topic_path(topic), method: :delete, class: "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= link_to "New topic", new_topic_path, class: "btn btn-success new-topic-button" %>
+  <div class="d-flex"><strong style="margin-top: 10px"><%= will_paginate(@topics) %></strong></div>
 </div>
-
-<%= link_to "New topic", new_topic_path %>
-<%= will_paginate(@topics) %>
