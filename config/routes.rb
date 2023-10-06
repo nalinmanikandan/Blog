@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :tags
   resources :topics do
     resources :posts do
+      patch '/mark_post_as_read',on: :member, to: 'posts#mark_as_read'
       resources :comments
       resources :ratings
     end

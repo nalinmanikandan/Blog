@@ -4,20 +4,15 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    user ||= User.new # Guest user (not logged in)
-
-    # Define abilities for posts
+    user ||= User.new
     can :read, Post # Allow all users to read posts
     can :create, Post # Allow all users to create posts
-
-    # Allow users to edit their own posts
-    can :update, Post, user_id: user.id
-
-    # Define abilities for comments
+    can :update, Post, user_id: user.id  # Allow users to edit their own posts
     can :read, Comment # Allow all users to read comments
     can :create, Comment # Allow all users to create comments
-
-    # Allow users to edit their own comments
-    can :update, Comment, user_id: user.id
+    can :update, Comment, user_id: user.id  # Allow users to edit their own comments
+    can :read, Topic # Allow all users to read comments
+    can :create, Topic # Allow all users to create comments
+    can :update, Topic, user_id: user.id  # Allow users to edit their own comments
   end
 end

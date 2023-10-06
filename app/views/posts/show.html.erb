@@ -1,6 +1,34 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @post %>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var postId = <%= @post.id %>; // Replace with the actual post ID
+        var topicId = <%= @post.topic.id %>; // Replace with the actual topic ID
+        var currentUserReadsPost = <%= current_user.read_posts.include?(@post) %>;
+
+        if (!currentUserReadsPost) {
+            var csrfToken = $('meta[name=csrf-token]').attr('content');
+            $.ajax({
+                type: 'PATCH',
+                url: '/topics/' + topicId + '/posts/' + postId + '/mark_post_as_read',
+                data: { post_id: postId },
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', csrfToken); // Set the CSRF token in the request headers
+                },
+                success: function(response) {
+                    // Handle success, you can optionally update the UI or perform other actions
+                    console.log('Post marked as read successfully.');
+                },
+                error: function(error) {
+                    // Handle error, you can display an error message or perform other error handling
+                    console.error('Error marking post as read:', error);
+                }
+            });
+        }
+    });
+</script>
 <%= link_to "Add Comments", new_topic_post_comment_path(@topic,@post) %>
 <%= link_to "View Comments", topic_post_comments_path(@topic, @post) %>
 <div>

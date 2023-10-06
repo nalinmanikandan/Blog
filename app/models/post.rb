@@ -7,4 +7,6 @@ class Post < ApplicationRecord
 	has_one_attached :image
 	has_many :ratings
 	belongs_to :user
+	has_many :posts_users_read_statuses
+	has_many :read_by_users, through: :posts_users_read_statuses, source: :user
 end

@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
   before_action :find_topic
+  load_and_authorize_resource
   # GET /posts or /posts.json
   def index
     @posts = Post.all.includes(:comments) # Load posts and associated comments
@@ -36,7 +37,11 @@ class PostsController < ApplicationController
   def edit
     @post = @topic.posts.find(params[:id])
   end
-
+  def mark_as_read
+    post = Post.find(params[:post_id])
+    current_user.read_posts << post unless current_user.read_posts.include?(post)
+    render json: { success: true }
+  end
   # POST /posts or /posts.json
   def create
     @post = @topic.posts.build(post_params.except(:tags))

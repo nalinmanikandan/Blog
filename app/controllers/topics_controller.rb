@@ -1,6 +1,7 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, only: %i[index show edit update destroy ]
+  load_and_authorize_resource
   # GET /topics or /topics.json
   def index
     @topics = Topic.paginate(page: params[:page])
@@ -24,7 +25,7 @@ class TopicsController < ApplicationController
   # POST /topics or /topics.json
   def create
     @topic = Topic.new(topic_params)
-
+    @topic.user = current_user
     respond_to do |format|
       if @topic.save
         format.html { redirect_to topic_url(@topic), notice: "Topic was successfully created." }

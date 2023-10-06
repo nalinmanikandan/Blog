@@ -13,6 +13,11 @@
           <strong>Content:</strong>
           <%= post.content %>
         </p>
+        <% if current_user.read_posts.include?(post) %>
+          <p>This post has been read.</p>
+        <% else %>
+          <p>This post has not been read yet.</p>
+        <% end %>
         <p>
           <%= @comments_count[post.id] || 0 %> comments
         </p>

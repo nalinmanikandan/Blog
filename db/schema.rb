@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_29_061824) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_06_140744) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -60,6 +60,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_29_061824) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "posts_users_read_statuses", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "post_id", null: false
+    t.boolean "read"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_posts_users_read_statuses_on_post_id"
+    t.index ["user_id"], name: "index_posts_users_read_statuses_on_user_id"
+  end
+
   create_table "ratings", force: :cascade do |t|
     t.integer "value"
     t.integer "post_id", null: false
@@ -88,6 +98,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_29_061824) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_topics_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -108,7 +120,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_29_061824) do
   add_foreign_key "comments", "users"
   add_foreign_key "posts", "topics"
   add_foreign_key "posts", "users"
+  add_foreign_key "posts_users_read_statuses", "posts"
+  add_foreign_key "posts_users_read_statuses", "users"
   add_foreign_key "ratings", "posts"
   add_foreign_key "taggables", "posts"
   add_foreign_key "taggables", "tags"
+  add_foreign_key "topics", "users"
 end
