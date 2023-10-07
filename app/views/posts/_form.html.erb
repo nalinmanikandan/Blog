@@ -27,9 +27,18 @@
       <span><%= form.label :image, 'Upload Image', class: "form-label" %></span> : <%= form.file_field :image, class: "form-control" %>
     </div>
 
-    <div class="mb-3" style="margin-bottom: 10px">
+    <!--<div class="mb-3" style="margin-bottom: 10px">
       <span><%= form.label :tag, class: "form-label" %></span> : <%= form.text_field :tags, value: @post.tags.map(&:name).join(","), class: "form-control" %>
+    </div>-->
+
+    <div>
+      <%= form.label :tag_ids,"Tags :" %>
+      <% Tag.all.each do |tag| %>
+        <%= form.check_box :tag_ids,{multiple: true,class: "form-check-input" },tag.id, nil %>
+        <%= label_tag "post_tag_ids_#{tag.id}",tag.name,class: "form-check-label" %>
+      <% end %>
     </div>
+    <%= link_to "create new tags", new_tag_path %>
 
     <div class="mb d-flex">
       <span class="createpost"><%= form.submit "Create Post", class: "btn btn-primary" %></span>

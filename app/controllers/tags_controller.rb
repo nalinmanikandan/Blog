@@ -63,7 +63,10 @@ class TagsController < ApplicationController
   def set_tag
     @tag = Tag.find(params[:id])
   end
-
+  def posts
+    @tag = Tag.find(params[:id])
+    @posts = @tag.posts
+  end
   # Only allow a list of trusted parameters through.
   def tag_params
     params.require(:tag).permit(:name)

@@ -1,13 +1,10 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
   before_action :find_topic
-  load_and_authorize_resource
+  before_action :set_post, only: %i[ show edit update destroy ]
   # GET /posts or /posts.json
   def index
     @posts = Post.all.includes(:comments) # Load posts and associated comments
-
-    # Calculate comments count for each post
-    @comments_count = {}
+    @comments_count = {} # Calculate comments count for each post
     @posts.each do |post|
       comments_count = post.comments.count
       @comments_count[post.id] = comments_count
@@ -25,6 +22,7 @@ class PostsController < ApplicationController
     @tags = @post.tags
     @posts = @topic.posts
     @ratings = Rating.where(post: @posts)
+    @comments = @post.comments
   end
 
   # GET /posts/new
@@ -44,9 +42,9 @@ class PostsController < ApplicationController
   end
   # POST /posts or /posts.json
   def create
-    @post = @topic.posts.build(post_params.except(:tags))
+    @post = @topic.posts.build(post_params)
     @post.user = current_user
-    create_or_delete_posts_tags(@post, params[:post][:tags])
+    #create_or_delete_posts_tags(@post, params[:post][:tags])
     respond_to do |format|
       if @post.save
         format.html { redirect_to topics_path(@topic), notice: "Post was successfully created." }
@@ -75,7 +73,7 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
-    @post = @topic.posts.find(params[:id])
+    @post.tags.destroy
     @post.destroy
     respond_to do |format|
       format.html { redirect_to topic_path(@topic), notice: "Post was successfully destroyed." }
@@ -85,24 +83,23 @@ class PostsController < ApplicationController
 
   private
 
-  def create_or_delete_posts_tags(post, tags)
-    post.taggables.destroy_all
-    tags = tags.strip.split(',')
-    tags.each do |tag|
-      post.tags << Tag.find_or_create_by(name:tag)
-    end
-  end
+  #def create_or_delete_posts_tags(post, tags)
+  # post.taggables.destroy_all
+  # tags = tags.strip.split(',')
+  # tags.each do |tag|
+  #   post.tags << Tag.find_or_create_by(name:tag)
+  # end
+  #end
   # Use callbacks to share common setup or constraints between actions.
-  def set_post
-    @post = Post.find(params[:id])
-  end
-
-  # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:title, :content, :tags, :image, :ratings)
+    params.require(:post).permit(:title, :content, :image, :ratings,tag_ids: [])
+    #params.require(:post).permit(:title, :content, :topic_id, tag_ids: [])
   end
   def find_topic
     @topic = Topic.find(params[:topic_id])
+  end
+  def set_post
+    @post = @topic.posts.find(params[:id])
   end
 
 end

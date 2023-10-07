@@ -29,14 +29,13 @@
         }
     });
 </script>
-<%= link_to "Add Comments", new_topic_post_comment_path(@topic,@post) %>
-<%= link_to "View Comments", topic_post_comments_path(@topic, @post) %>
-<div>
+
   <% if can? :update, @post %>
     <%= link_to 'Edit Post', edit_topic_post_path(@topic, @post) %>
   <% end %>
-  <%= link_to "Back to topic", topics_path(@topic) %>
   <% if can? :delete, @post %>
-    <%= link_to 'Edit Post', edit_topic_post_path(@topic, @post) %>
+    <%= button_to 'Delete',topic_post_path(@topic,@post), method: :delete %>
   <% end %>
-</div>
+<%= link_to "Back to topic", topics_path(@topic) %>
+<%= link_to "Back to posts", topic_posts_path(@topic) %>
+

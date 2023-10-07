@@ -3,7 +3,7 @@
   <div id="<%= dom_id(post) %>" class="col-md-6">
     <p class="post-title">
       <strong>Title:</strong>
-      <%= post.title %>
+      <%= post.title %>&nbsp;&nbsp;&nbsp;<strong>(<%= post.topic.title %>)</strong>
     </p>
     <% if post.user.present? %>
       <p>
@@ -37,6 +37,14 @@
         Not rated yet
       <% end %>
     </p>
+    <div class="ratings">
+      <% (1..5).to_a.reverse.each do |star| %>
+        <div class="star-rating">
+          <%= star %> Star Ratings:
+          <%= post.ratings.where(value: star).count %>
+        </div>
+      <% end %>
+    </div>
     <%= form_for([@topic, post, Rating.new], html: { class: "rating-form" }) do |f| %>
       <div class="form-group">
         <%= f.label "Rate this post:" %>
@@ -45,6 +53,24 @@
       <div class="form-group">
         <%= f.submit "Submit Rating", class: "btn btn-primary" %>
       </div>
+    <% end %>
+    <%= form_for([@topic,post,Comment.new]) do |form| %>
+      <div class="field">
+        <%= form.label :content %>
+        <%= form.text_field :body %>
+      </div>
+      <div class="actions">
+        <%= form.submit %>
+      </div>
+    <% end %>
+    <strong>Comments:</strong><br>
+    <% @comments.each do |comment| %>
+      <strong><%= comment.user.email %></strong>&nbsp;&nbsp;&nbsp;<%= comment.body %>&nbsp;&nbsp;&nbsp;
+      <% if can? :update, comment %>
+        <%= link_to 'Edit', edit_topic_post_comment_path(@topic, @post, comment) %><% end %>
+      &nbsp;&nbsp;&nbsp;
+      <% if can? :delete, comment %>
+        <%= button_to 'Destroy', topic_post_comment_path(@topic, @post, comment), method: :delete %><% end %><br>
     <% end %>
   </div>
 </div>
