@@ -59,9 +59,9 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
     @post = @topic.posts.find(params[:id])
-    create_or_delete_posts_tags(@post, params[:post][:tags])
+    #create_or_delete_posts_tags(@post, params[:post][:tags])
     respond_to do |format|
-      if @post.update(post_params.except(:tags))
+      if @post.update(post_params)
         format.html { redirect_to topic_post_path(@topic,@post), notice: "Post was successfully updated." }
         format.json { render :show, status: :ok, location: @post }
       else

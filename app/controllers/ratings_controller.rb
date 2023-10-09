@@ -3,11 +3,18 @@ class RatingsController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
     @rating = @post.ratings.new(rating_params)
+    @rating.user = current_user
     @topic = @post.topic
-    if @rating.save
-      redirect_to topic_posts_path(@topic), notice: "Rating created successfully."
+    existingrating = current_user.ratings.find_by(post: @post)
+    if existingrating
+      existingrating.update(rating_params)
+      redirect_to topic_post_path(@topic,@post), notice: 'Rating already added.'
     else
-      render 'posts/show'
+      if @rating.save
+        redirect_to topic_posts_path(@topic), notice: "Rating created successfully."
+      else
+        render 'posts/show'
+      end
     end
   end
 

@@ -13,6 +13,15 @@
           <strong>Content:</strong>
           <%= post.content %>
         </p>
+        <p class="average-rating">
+          <strong>Average Rating:</strong>
+          <% if post.ratings.any? %>
+            <% rating_value = @ratings.average(:value).round(2) %>
+            <span class="star-rating">&#9733;</span> <%= rating_value %>
+          <% else %>
+            Not rated yet
+          <% end %>
+        </p>
         <% if current_user.read_posts.include?(post) %>
           <p>This post has been read.</p>
         <% else %>
