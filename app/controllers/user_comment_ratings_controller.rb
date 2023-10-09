@@ -3,7 +3,8 @@ class UserCommentRatingsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:comment_id])
-    if existing_rating = current_user.user_comment_ratings.find_by(comment: @comment)
+    existing_rating = current_user.user_comment_ratings.find_by(comment: @comment)
+    if existing_rating
       existing_rating.update(user_comment_rating_params)
       redirect_to topic_post_path(@topic,@post), notice: 'Rating already added.'
     else

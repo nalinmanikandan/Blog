@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :find_topic
   before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
   # GET /posts or /posts.json
   def index
     @posts = Post.all.includes(:comments) # Load posts and associated comments
@@ -13,9 +14,7 @@ class PostsController < ApplicationController
     @posts = @topic.posts.paginate(page:params[:page])
     @ratings = Rating.where(post: @posts)
   end
-  def tag_list
-    self.tags.pluck(:name).join(", ")
-  end
+
   # GET /posts/1 or /posts/1.json
   def show
     @post = @topic.posts.find(params[:id])
