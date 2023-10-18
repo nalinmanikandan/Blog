@@ -9,4 +9,7 @@ class Post < ApplicationRecord
 	belongs_to :user
 	has_many :posts_users_read_statuses
 	has_many :read_by_users, through: :posts_users_read_statuses, source: :user
+	scope :created_between, ->(from_date, to_date) {
+		where(created_at: from_date.beginning_of_day..to_date.end_of_day)
+	}
 end

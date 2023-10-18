@@ -4,14 +4,20 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
   # GET /posts or /posts.json
   def index
-    @posts = Post.all.includes(:comments) # Load posts and associated comments
+    if params[:from_date].present? && params[:to_date].present?
+      from_date = Date.parse(params[:from_date])
+      to_date = Date.parse(params[:to_date])
+    else
+      from_date = 1.day.ago.to_date
+      to_date = Date.today
+    end
+    @topic = Topic.find(params[:topic_id])
+    @posts = @topic.posts.includes(:comments).created_between(from_date,to_date).paginate(page:params[:page])
     @comments_count = {} # Calculate comments count for each post
     @posts.each do |post|
       comments_count = post.comments.count
       @comments_count[post.id] = comments_count
     end
-    @topic = Topic.find(params[:topic_id])
-    @posts = @topic.posts.paginate(page:params[:page])
     @ratings = Rating.where(post: @posts)
   end
 
