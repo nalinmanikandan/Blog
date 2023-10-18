@@ -12,4 +12,7 @@ class Post < ApplicationRecord
 	scope :created_between, ->(from_date, to_date) {
 		where(created_at: from_date.beginning_of_day..to_date.end_of_day)
 	}
+	def update_rating_average
+		update(rating_average: ratings.average(:value))
+	end
 end

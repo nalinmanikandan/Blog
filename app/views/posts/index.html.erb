@@ -24,7 +24,7 @@
         <p class="average-rating">
           <strong>Average Rating:</strong>
           <% if post.ratings.any? %>
-            <% rating_value = @ratings.average(:value).round(2) %>
+            <% rating_value = post.rating_average %>
             <span class="star-rating">&#9733;</span> <%= rating_value %>
           <% else %>
             Not rated yet
