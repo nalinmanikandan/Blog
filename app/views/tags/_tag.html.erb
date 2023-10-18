@@ -3,15 +3,15 @@
     <strong>Name:</strong>
     <%= tag.name %>
   </p>
-  <% tag.taggables.each do |taggable| %>
+  <% @posts.each do |post| %>
     <h2>Post:</h2>
     <div>
       <span>Title : </span>
-      <%= taggable.post.title %>
+      <%= post.title %>
     </div>
     <div>
       <span>Conteent : </span>
-      <%= taggable.post.content %>
+      <%= post.content %>
     </div>
   <% end %>
 </div>

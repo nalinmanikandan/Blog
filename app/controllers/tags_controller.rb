@@ -3,12 +3,13 @@ class TagsController < ApplicationController
 
   # GET /tags or /tags.json
   def index
-    @tags = Tag.all
+    @tags = Tag.includes(:user).all
   end
 
   # GET /tags/1 or /tags/1.json
   def show
-    @tags = Tag.all
+    @tag = Tag.find(params[:id])
+    @posts = @tag.posts
   end
 
   # GET /tags/new

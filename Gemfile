@@ -84,3 +84,5 @@ gem 'will_paginate'
 gem 'devise'
 
 gem 'cancancan'
+
+gem 'bullet'

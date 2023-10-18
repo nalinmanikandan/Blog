@@ -12,7 +12,7 @@ class PostsController < ApplicationController
       to_date = Date.today
     end
     @topic = Topic.find(params[:topic_id])
-    @posts = @topic.posts.includes(:comments).created_between(from_date,to_date).paginate(page:params[:page])
+    @posts = @topic.posts.created_between(from_date,to_date).paginate(page:params[:page])
     @comments_count = {} # Calculate comments count for each post
     @posts.each do |post|
       comments_count = post.comments.count
@@ -27,7 +27,7 @@ class PostsController < ApplicationController
     @tags = @post.tags
     @posts = @topic.posts
     @ratings = Rating.where(post: @posts)
-    @comments = @post.comments
+    @comments = @post.comments.includes(:user)
   end
 
   # GET /posts/new

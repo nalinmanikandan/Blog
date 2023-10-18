@@ -46,6 +46,7 @@
     <orderEntry type="library" scope="PROVIDED" name="bindex (v0.8.1, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bootsnap (v1.16.0, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="builder (v3.2.4, ruby-3.2.2-p53) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="bullet (v7.1.2, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v2.4.19, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cancancan (v3.5.0, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="capybara (v3.39.2, ruby-3.2.2-p53) [gem]" level="application" />
@@ -117,6 +118,7 @@
     <orderEntry type="library" scope="PROVIDED" name="tzinfo (v2.0.6, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tzinfo-data (v1.2023.3, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="unicode-display_width (v2.4.2, ruby-3.2.2-p53) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="uniform_notifier (v1.16.0, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="warden (v1.2.9, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="web-console (v4.2.1, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="websocket (v1.2.9, ruby-3.2.2-p53) [gem]" level="application" />
@@ -138,6 +140,7 @@
         <option value="active_record:multi_db" />
         <option value="application_record" />
         <option value="benchmark" />
+        <option value="bullet:install" />
         <option value="cancan:ability" />
         <option value="channel" />
         <option value="controller" />
@@ -201,6 +204,7 @@
         <option value="active_record:multi_db" />
         <option value="application_record" />
         <option value="benchmark" />
+        <option value="bullet:install" />
         <option value="cancan:ability" />
         <option value="channel" />
         <option value="controller" />
