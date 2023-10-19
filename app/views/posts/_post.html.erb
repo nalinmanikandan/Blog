@@ -1,16 +1,18 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <div class="container-fluid">
   <div id="<%= dom_id(post) %>" class="col-md-6">
+
     <p class="post-title">
-      <strong>Title:</strong>
-      <%= post.title %>&nbsp;&nbsp;&nbsp;<strong>(<%= post.topic.title %>)</strong>
+      <strong>Title:</strong><%= post.title %>&nbsp;&nbsp;&nbsp;<strong>(<%= post.topic.title %>)</strong>
     </p>
+
     <% if post.user.present? %>
       <p>
         <strong>User:</strong>
         <%= post.user.email %>
       </p>
     <% end %>
+
     <div class="image-container">
       <% if post.image.attached? %>
         <%= image_tag(post.image, style: "width: 200px") %>
@@ -18,9 +20,9 @@
         No image available
       <% end %>
     </div>
+
     <p class="post-content">
-      <strong>Content:</strong>
-      <%= post.content %>
+      <strong>Content:</strong><%= post.content %>
     </p>
     <p class="tags">
       <strong>Tags:</strong>
@@ -28,15 +30,21 @@
         <%= link_to tag.name, tag, class: "badge badge-primary mr-2" %>
       <% end %>
     </p>
+
     <p class="average-rating">
       <strong>Average Rating:</strong>
       <% if post.ratings.any? %>
-        <% rating_value = post.rating_average.round(2) %>
-        <span class="star-rating">&#9733;</span> <%= rating_value %>
+        <% avg = post.rating_average %>
+        <% while avg>0 %>
+          <span class="star-rating">&#9733;</span>
+          <% avg=avg-1 %>
+          <% end %>
+        <!--<span class="star-rating">&#9733;</span> <%= post.rating_average %>-->
       <% else %>
         Not rated yet
       <% end %>
     </p>
+
     <div class="ratings">
       <% (1..5).to_a.reverse.each do |star| %>
         <div class="star-rating">
@@ -45,6 +53,7 @@
         </div>
       <% end %>
     </div>
+
     <%= form_for([@topic, post, Rating.new], html: { class: "rating-form" }) do |f| %>
       <div class="form-group">
         <%= f.label "Rate this post:" %>
@@ -54,22 +63,33 @@
         <%= f.submit "Submit Rating", class: "btn btn-primary" %>
       </div>
     <% end %>
-    <%= render "usercommentrating", topic: post.topic,post: post, comment: comment,usercommentrating: UserCommentRating.new %>
+
+    <%= form_for([@topic,post,Comment.new]) do |form| %>
+      <div class="field">
+        <%= form.label :content %>
+        <%= form.text_field :body %>
+      </div>
+      <div class="actions">
+        <%= form.submit %>
+      </div>
+    <% end %>
+
     <strong>Comments:</strong><br>
     <% @comments.each do |comment| %>
-      <strong><%= comment.user.email %></strong>&nbsp;&nbsp;&nbsp;<%= comment.body %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'View Ratings', topic_post_comment_user_comment_ratings_path(post.topic,post,comment) %>&nbsp;&nbsp;&nbsp;
+      <strong><%= comment.user.email %></strong>&nbsp;&nbsp;&nbsp;
+      <%= comment.body %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <%= link_to 'View Ratings', topic_post_comment_user_comment_ratings_path(post.topic,post,comment) %>&nbsp;&nbsp;&nbsp;
+      <%= render "usercommentrating", topic: post.topic,post: post, comment: comment,usercommentrating: UserCommentRating.new %>
+
       <% if can? :update, comment %>
-        <%= link_to 'Edit', edit_topic_post_comment_path(@topic, @post, comment) %><% end %>
+        <%= link_to 'Edit', edit_topic_post_comment_path(@topic, @post, comment) %>
+      <% end %>
       &nbsp;&nbsp;&nbsp;
       <% if can? :delete, comment %>
-        <%= button_to 'Destroy', topic_post_comment_path(@topic, @post, comment), method: :delete %><% end %><br>
-      <%= form_for [post.topic, post, comment, UserCommentRating.new] do |f| %>
-        <%= f.hidden_field :comment_id, value: comment.id %>
-        <%= f.label :rating, 'Rate this comment:' %>
-        <%= f.collection_radio_buttons :rating, [[1, '1'], [2, '2'], [3, '3'], [4, '4'], [5, '5']], :first, :last, class: "form-check-input" %>
-        <%= f.submit 'Submit Rating' %>
-      <% end %>
+        <%= button_to 'Destroy', topic_post_comment_path(@topic, @post, comment), method: :delete %>
+      <% end %><br>
     <% end %>
+
   </div>
 </div>
 <style>
