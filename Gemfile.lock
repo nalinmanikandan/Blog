@@ -117,6 +117,10 @@ GEM
       activesupport (>= 5.0.0)
     json (2.6.3)
     language_server-protocol (3.17.0.3)
+    launchy (2.5.2)
+      addressable (~> 2.8)
+    letter_opener (1.8.1)
+      launchy (>= 2.2, < 3)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -273,6 +277,7 @@ PLATFORMS
   x64-mingw-ucrt
 
 DEPENDENCIES
+  activejob
   bootsnap
   bullet
   cancancan
@@ -281,6 +286,7 @@ DEPENDENCIES
   devise
   importmap-rails
   jbuilder
+  letter_opener
   puma (~> 5.0)
   rails (~> 7.0.8)
   rspec-rails (~> 6.0.0)

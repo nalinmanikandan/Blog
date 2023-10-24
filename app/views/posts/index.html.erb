@@ -3,14 +3,19 @@
 
 <div class="container">
 
-  <%= form_tag(topic_posts_path, method: "get") do %>
-    <label for="from_date">From Date:</label>
-    <%= date_field_tag :from_date, params[:from_date] %>
+  <%= form_tag(topic_posts_path, method: "get", class: "form") do %>
+    <div class="form-group">
+      <label for="from_date">From Date:</label>
+      <%= date_field_tag :from_date, params[:from_date], class: "form-control" %>
+    </div>
 
-    <label for="to_date">To Date:</label>
-    <%= date_field_tag :to_date, params[:to_date] %>
-    <%= submit_tag "Show Details" %>
-  <% end %>
+    <div class="form-group">
+      <label for="to_date">To Date:</label>
+      <%= date_field_tag :to_date, params[:to_date], class: "form-control" %>
+    </div>
+
+    <%= submit_tag "Filter posts", class: "btn btn-primary" %>
+    <% end %>
 
   <h1>Posts</h1>
 
@@ -51,7 +56,6 @@
         </p>
 
         <p class="show-link align-left">
-          <!-- Style the link like a button using Bootstrap classes -->
           <%= link_to "Show this post", topic_post_path(@topic, post), class: "btn btn-primary btn-like-link" %>
         </p>
 

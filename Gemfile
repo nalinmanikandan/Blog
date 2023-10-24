@@ -86,3 +86,9 @@ gem 'devise'
 gem 'cancancan'
 
 gem 'bullet'
+
+group :development do
+  gem 'letter_opener'
+end
+
+gem 'activejob'
