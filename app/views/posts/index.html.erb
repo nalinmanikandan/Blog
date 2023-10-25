@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <p style="color: green"><%= notice %></p>
 
 <div class="container">
@@ -71,70 +70,3 @@
   <div class="d-flex"><strong style="margin-top: 10px"><%= will_paginate(@topics) %></strong></div>
 
 </div>
-<style>
-    /* Custom CSS for additional styling */
-    .d-flex{
-        display: flex;
-        justify-content: center;
-        margin-top: 15px;
-    }
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        font-size: 14px; /* Set the default font size to 14px */
-    }
-    .new-back{
-        display: flex;
-        justify-content: space-between;
-    }
-    .container {
-        margin-top: 20px;
-    }
-    .link1{
-        padding-left: 15px;
-    }
-    .link2{
-        padding-right: 15px;
-    }
-    h1 {
-        color: #007bff;
-        font-size: 18px; /* Set the font size for h1 to 14px */
-        margin-left: 15px;
-        margin-bottom: 15px;
-    }
-
-    .post {
-        background-color: #fff;
-        border: 1px solid #ddd;
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-
-    .post-title {
-        font-size: 14px; /* Set the font size for post titles to 14px */
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 10px; /* Add margin to create space between title and description */
-    }
-
-    .post-content {
-        color: #555;
-        font-size: 14px; /* Set the font size for post content to 14px */
-        margin-bottom: 10px; /* Add margin to create space between description and link */
-    }
-
-    .show-link {
-        margin-top: 10px;
-    }
-
-    /* Style the links as buttons */
-    .btn-like-link {
-        text-decoration: none;
-        font-size: 14px; /* Set the font size for buttons to 14px */
-    }
-
-    /* Align elements on the left */
-    .align-left {
-        text-align: left;
-    }
-</style>

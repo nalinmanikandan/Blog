@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 <div id="topics" class="container-fluid">
 
@@ -36,7 +35,9 @@
     <% end %>
     </tbody>
   </table>
-
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button>
   <%= link_to "New topic", new_topic_path, class: "btn btn-success new-topic-button" %>
   <div class="d-flex"><strong style="margin-top: 10px"><%= will_paginate(@topics) %></strong></div>
 </div>

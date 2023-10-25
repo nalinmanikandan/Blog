@@ -92,3 +92,5 @@ group :development do
 end
 
 gem 'activejob'
+
+gem 'bootstrap-sass'
