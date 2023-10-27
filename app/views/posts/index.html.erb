@@ -2,7 +2,7 @@
 
 <div class="container">
 
-  <%= form_tag(topic_posts_path, method: "get", class: "form") do %>
+  <%= form_tag(posts_path, method: "get", class: "form") do %>
     <div class="form-group">
       <label for="from_date">From Date:</label>
       <%= date_field_tag :from_date, params[:from_date], class: "form-control" %>
@@ -51,11 +51,11 @@
         <% end %>
 
         <p>
-          <%= @comments_count[post.id] || 0 %> comments
+          <%= 0 ||@comments_count[post.id] %> comments
         </p>
 
         <p class="show-link align-left">
-          <%= link_to "Show this post", topic_post_path(@topic, post), class: "btn btn-primary btn-like-link" %>
+          <%= link_to "Show this post", topic_post_path(post.topic, post), class: "btn btn-primary btn-like-link" %>
         </p>
 
       </div>
@@ -63,8 +63,10 @@
   </div>
 
   <div class="new-back">
-    <span class="link1"><%= link_to "New post", new_topic_post_path(@topic), class: "btn btn-primary btn-like-link" %></span>
-    <span class="link2"><%= link_to "Back to topic", topics_path(@topic), class: "btn btn-primary btn-like-link" %></span>
+    <% if params[:topic_id] %>
+      <span class="link1"><%= link_to "New post", new_topic_post_path(@topic), class: "btn btn-primary btn-like-link" %></span>    <% end %>
+
+    <span class="link2"><%= link_to "Back to topic", topics_path, class: "btn btn-primary btn-like-link" %></span>
   </div>
 
   <div class="d-flex"><strong style="margin-top: 10px"><%= will_paginate(@topics) %></strong></div>

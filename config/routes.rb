@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "topics#index"
+  get 'posts', to: 'posts#index'
   resources :tags do
     member do
       get 'posts', to: 'tags#posts', as: 'posts'

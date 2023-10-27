@@ -35,9 +35,7 @@
     <% end %>
     </tbody>
   </table>
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-  </button>
   <%= link_to "New topic", new_topic_path, class: "btn btn-success new-topic-button" %>
+  <%= link_to "All posts", posts_path %>
   <div class="d-flex"><strong style="margin-top: 10px"><%= will_paginate(@topics) %></strong></div>
 </div>

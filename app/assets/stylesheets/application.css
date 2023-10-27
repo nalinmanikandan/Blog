@@ -14,6 +14,9 @@
  *= require_self
  */
 /* Custom CSS for the first section */
+*{
+    font-size: 14px;
+}
 body {
     background-color: #f4f4f4;
 }

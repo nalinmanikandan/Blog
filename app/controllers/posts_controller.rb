@@ -4,24 +4,32 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
 
   # GET /posts or /posts.json
-  def index
-    if params[:from_date].present? && params[:to_date].present?
-      from_date = Date.parse(params[:from_date])
-      to_date = Date.parse(params[:to_date])
-    else
-      from_date = 1.day.ago.to_date
-      to_date = Date.today
+    def index
+      if params[:from_date].present? && params[:to_date].present?
+        from_date = Date.parse(params[:from_date])
+        to_date = Date.parse(params[:to_date])
+      else
+        from_date = 1.day.ago.to_date
+        to_date = Date.today
+      end
+      if params[:topic_id]
+        # List posts for a specific topic
+        @topic = Topic.find(params[:topic_id])
+        @posts = @topic.posts.created_between(from_date,to_date).paginate(page:params[:page])
+      else
+        # List all posts
+        @posts = Post.created_between(from_date,to_date).paginate(page:params[:page])
+      end
     end
-    @topic = Topic.find(params[:topic_id])
-    @posts = @topic.posts.created_between(from_date,to_date).paginate(page:params[:page])
     @ratings = Rating.where(post: @posts)
     @comments_count = {}
-    @posts.each do |post|
-      comments_count = post.comments.count
-      @comments_count[post.id] = comments_count
+    if @posts
+      @posts.each do |post|
+        comments_count = post.comments.count
+        @comments_count[post.id] = comments_count
+      end
     end
     #render json: @posts, status: :ok
-  end
 
   # GET /posts/1 or /posts/1.json
   def show
@@ -91,7 +99,7 @@ class PostsController < ApplicationController
     #params.require(:post).permit(:title, :content, :topic_id, tag_ids: [])
   end
   def find_topic
-    @topic = Topic.find(params[:topic_id])
+    @topic = Topic.find(params[:topic_id]) if params[:topic_id].present?
   end
   def set_post
     @post = @topic.posts.find(params[:id])
