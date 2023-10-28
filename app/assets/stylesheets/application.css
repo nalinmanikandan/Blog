@@ -371,3 +371,85 @@ pagination .page-item.active .page-link {
     margin-top: 10px;
     text-decoration: none;
 }
+.post-container {
+    border: 1px solid #ddd;
+    background-color: #f5f5f5;
+    padding: 20px;
+    margin: 20px auto;
+}
+
+/* Style for the post title */
+.post-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Style for the "Edit" and "Destroy" buttons */
+.post-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.post-buttons .btn {
+    margin-left: 10px;
+}
+
+/* Style for user info */
+.user-info {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Style for the image container */
+.image-container {
+    margin-top: 10px;
+}
+
+/* Style for post content */
+.post-content {
+    margin-top: 10px;
+}
+
+/* Style for tags */
+.tags {
+    margin-top: 10px;
+}
+
+/* Style for the star ratings */
+.star-rating {
+    color: gold;
+}
+
+/* Style for the ratings */
+.ratings {
+    margin-top: 10px;
+}
+
+/* Style for the rating form */
+.rating-form {
+    margin-top: 10px;
+}
+
+/* Style for the comment container */
+.comment-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff;
+    margin-top: 10px;
+}
+
+/* Style for comment actions */
+.comment-actions a {
+    margin-right: 10px;
+}
+
+/* Style for the "Back to Post" and "Back to Topic" buttons */
+.text-center .btn {
+    margin: 10px;
+}
+.post-show{
+    display: flex;
+    justify-content: space-between;
+}

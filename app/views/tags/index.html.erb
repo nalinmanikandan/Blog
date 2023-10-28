@@ -6,7 +6,7 @@
     <% @tags.each do |tag| %>
       <%= render tag %>
       <p>
-        <%= link_to "Show Post", tag_path(tag), class: "btn btn-primary show-post-link float-left" %>
+        <%= link_to "Show tag", tag_path(tag), class: "btn btn-primary show-post-link float-left" %>
       </p>
     <% end %>
   </div>

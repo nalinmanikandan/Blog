@@ -1,18 +1,12 @@
 <div id="<%= dom_id comment %>">
   <% if comment.user.present? %>
     <p>
-      <strong>User:</strong>
+      <strong>user:</strong>
       <%= comment.user.email %>
     </p>
   <% end %>
   <p>
-    <strong>Body:</strong>
+    <strong>Comment:</strong>
     <%= comment.body %>
   </p>
-
-  <!--<p>
-    <strong>Post:</strong>
-    <%= comment.post_id %>
-  </p>-->
-
 </div>

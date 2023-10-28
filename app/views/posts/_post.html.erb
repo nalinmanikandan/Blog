@@ -1,14 +1,16 @@
-<div class="container-fluid">
-  <div id="<%= dom_id(post) %>" class="col-md-6">
 
-    <p class="post-title">
-      <strong>Title:</strong><%= post.title %>&nbsp;&nbsp;&nbsp;<strong>(<%= post.topic.title %>)</strong>
-    </p>
+  <div id="<%= dom_id(post) %>" class="col-md-6 ">
+    <div class="post-title">
+      <strong>Title:</strong> <%= post.title %> <strong>(<%= post.topic.title %>)</strong>
+    <div class="post-buttons">
+      <%= link_to 'Edit', edit_topic_post_path(@topic, post), class: "btn btn-secondary btn-sm" if can? :update, post %>
+      <%= button_to 'Destroy', topic_post_path(@topic, post), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" if can? :delete, post %>
+    </div>
+    </div>
 
     <% if post.user.present? %>
-      <p>
-        <strong>User:</strong>
-        <%= post.user.email %>
+      <p class="user-info">
+        <strong>User:</strong> <%= post.user.email %>
       </p>
     <% end %>
 
@@ -21,12 +23,12 @@
     </div>
 
     <p class="post-content">
-      <strong>Content:</strong><%= post.content %>
+      <strong>Content:</strong> <%= post.content %>
     </p>
     <p class="tags">
       <strong>Tags:</strong>
       <% post.tags.each do |tag| %>
-        <span style="color: black"><%= link_to tag.name, tag, class: "badge badge-primary mr-2", style: "color:black"%></span>
+        <span style="color: black"><%= link_to tag.name, tag, class: "badge badge-primary mr-2" %></span>
       <% end %>
     </p>
 
@@ -34,11 +36,10 @@
       <strong>Average Rating:</strong>
       <% if post.ratings.any? %>
         <% avg = post.rating_average %>
-        <% while avg>0 %>
+        <% while avg > 0 %>
           <span class="star-rating">&#9733;</span>
-          <% avg=avg-1 %>
-          <% end %>
-        <!--<span class="star-rating">&#9733;</span> <%= post.rating_average %>-->
+          <% avg = avg - 1 %>
+        <% end %>
       <% else %>
         Not rated yet
       <% end %>
@@ -47,8 +48,7 @@
     <div class="ratings">
       <% (1..5).to_a.reverse.each do |star| %>
         <div class="star-rating">
-          <%= star %> Star Ratings:
-          <%= post.ratings.where(value: star).count %>
+          <%= star %> Star Ratings: <%= post.ratings.where(value: star).count %>
         </div>
       <% end %>
     </div>
@@ -63,36 +63,37 @@
       </div>
     <% end %>
 
-    <%= form_for([@topic,post,Comment.new]) do |form| %>
-      <div class="field">
+    <%= form_for([@topic, post, Comment.new]) do |form| %>
+      <div class="form-group">
         <%= form.label :content %>
-        <%= form.text_field :body %>
+        <%= form.text_field :body, class: "form-control" %>
       </div>
-      <div class="actions">
-        <%= form.submit %>
+      <div class="form-group">
+        <%= form.submit "Submit Comment", class: "btn btn-primary" %>
       </div>
     <% end %>
 
     <strong>Comments:</strong><br>
     <% @comments.each do |comment| %>
-      <strong><%= comment.user.email %></strong>&nbsp;&nbsp;&nbsp;
-      <%= comment.body %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <%= link_to 'View Ratings', topic_post_comment_user_comment_ratings_path(post.topic,post,comment) %>&nbsp;&nbsp;&nbsp;
-      <%= render "usercommentrating", topic: post.topic,post: post, comment: comment,usercommentrating: UserCommentRating.new %>
-
-      <% if can? :update, comment %>
-        <%= link_to 'Edit', edit_topic_post_comment_path(@topic, @post, comment) %>
-      <% end %>
-      &nbsp;&nbsp;&nbsp;
-      <% if can? :delete, comment %>
-        <%= button_to 'Destroy', topic_post_comment_path(@topic, @post, comment), method: :delete %>
-      <% end %><br>
+      <div class="comment-container">
+        <%= render partial: 'comments/comment', collection: @post.comments %>
+        <div class="comment-actions">
+          <%= link_to 'View Ratings', topic_post_comment_user_comment_ratings_path(post.topic, post, comment) %>
+          <%= render "usercommentrating", topic: post.topic, post: post, comment: comment, usercommentrating: UserCommentRating.new %>
+          <% if can? :update, comment %>
+            <%= link_to 'Edit', edit_topic_post_comment_path(@topic, post, comment), class: "btn btn-secondary btn-sm" %>
+          <% end %>
+          <% if can? :delete, comment %>
+            <%= button_to 'Destroy', topic_post_comment_path(@topic, post, comment), method: :delete, class: "btn btn-danger btn-sm" %>
+          <% end %>
+        </div>
+      </div>
     <% end %>
-
   </div>
-</div>
+
+
 <style>
-  *{
-      color: #2E2F30;
-  }
+    /* Style for the post container */
+
+
 </style>

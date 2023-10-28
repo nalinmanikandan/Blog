@@ -1,53 +1,45 @@
-<p style="color: green"><%= notice %></p>
+<div class="container">
+  <p style="color: green"><%= notice %></p>
 
-<%= render @post %>
+  <%= render @post %>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        var postId = <%= @post.id %>; // Replace with the actual post ID
-        var topicId = <%= @post.topic.id %>; // Replace with the actual topic ID
-        var currentUserReadsPost = <%= current_user.read_posts.include?(@post) %>;
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+      $(document).ready(function() {
+          var postId = <%= @post.id %>; // Replace with the actual post ID
+          var topicId = <%= @post.topic.id %>; // Replace with the actual topic ID
+          var currentUserReadsPost = <%= current_user.read_posts.include?(@post) %>;
 
-        if (!currentUserReadsPost) {
-            var csrfToken = $('meta[name=csrf-token]').attr('content');
-            $.ajax({
-                type: 'PATCH',
-                url: '/topics/' + topicId + '/posts/' + postId + '/mark_post_as_read',
-                data: { post_id: postId },
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader('X-CSRF-Token', csrfToken); // Set the CSRF token in the request headers
-                },
-                success: function(response) {
-                    // Handle success, you can optionally update the UI or perform other actions
-                    console.log('Post marked as read successfully.');
-                },
-                error: function(error) {
-                    // Handle error, you can display an error message or perform other error handling
-                    console.error('Error marking post as read:', error);
-                }
-            });
-        }
-    });
-</script>
+          if (!currentUserReadsPost) {
+              var csrfToken = $('meta[name=csrf-token]').attr('content');
+              $.ajax({
+                  type: 'PATCH',
+                  url: '/topics/' + topicId + '/posts/' + postId + '/mark_post_as_read',
+                  data: { post_id: postId },
+                  beforeSend: function(xhr) {
+                      xhr.setRequestHeader('X-CSRF-Token', csrfToken); // Set the CSRF token in the request headers
+                  },
+                  success: function(response) {
+                      // Handle success, you can optionally update the UI or perform other actions
+                      console.log('Post marked as read successfully.');
+                  },
+                  error: function(error) {
+                      // Handle error, you can display an error message or perform other error handling
+                      console.error('Error marking post as read:', error);
+                  }
+              });
+          }
+      });
+  </script>
 
   <div class="row">
-    <div class="col-md-1">
-      <% if can? :update, @post %>
-        <%= link_to 'Edit Post', edit_topic_post_path(@topic, @post), class: 'btn btn-primary' %>
-      <% end %>
+    <div class="mt-3 post-show">
+      <%= link_to "Back to topic", topics_path(@topic), class: 'btn btn-secondary' %>
+      <%= link_to "Back to posts", topic_posts_path(@topic), class: 'btn btn-secondary' %>
     </div>
-    <div class="col-md-1 ">
-      <% if can? :delete, @post %>
-        <%= button_to 'Delete', topic_post_path(@topic, @post), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-      <% end %>
-    </div>
-
-  <div class="mt-3">
-    <%= link_to "Back to topic", topics_path(@topic), class: 'btn btn-secondary' %>
-    <%= link_to "Back to posts", topic_posts_path(@topic), class: 'btn btn-secondary' %>
   </div>
 </div>
+
 
 
 
