@@ -17,7 +17,6 @@ class PostsController < ApplicationController
         @topic = Topic.find(params[:topic_id])
         @posts = @topic.posts.created_between(from_date,to_date).paginate(page:params[:page])
       else
-        # List all posts
         @posts = Post.created_between(from_date,to_date).paginate(page:params[:page])
       end
     end

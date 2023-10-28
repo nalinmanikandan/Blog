@@ -1,17 +1,23 @@
-<div id="<%= dom_id tag %>">
+<div id="<%= dom_id(tag, :tag) %>" class="container">
   <p>
-    <strong>Name:</strong>
+    <strong class="tag-name">Name:</strong>
     <%= tag.name %>
   </p>
-  <% @posts.each do |post| %>
-    <h2>Post:</h2>
-    <div>
-      <span>Title : </span>
-      <%= post.title %>
-    </div>
-    <div>
-      <span>Conteent : </span>
-      <%= post.content %>
-    </div>
-  <% end %>
+  <% if @posts %>
+    <% @posts.each do |post| %>
+      <div class="post-container">
+        <h2 class="post-title">Post:</h2>
+        <div class="post-info">
+          <span class="post-title-label">Title : </span>
+          <%= post.title %>
+        </div>
+        <div class="post-info">
+          <span class="post-content-label">Content : </span>
+          <%= post.content %>
+        </div>
+        <%= link_to "Show Post", topic_post_path(post.topic, post), class: "btn btn-primary show-post-link" %>
+      </div>
+    <% end %>
+    <% end %>
 </div>
+<%= will_paginate(@posts) %>

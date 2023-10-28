@@ -3,13 +3,14 @@ class TagsController < ApplicationController
 
   # GET /tags or /tags.json
   def index
-    @tags = Tag.includes(:user).all
+    @tags = Tag.paginate(page:params[:page])
+
   end
 
   # GET /tags/1 or /tags/1.json
   def show
     @tag = Tag.find(params[:id])
-    @posts = @tag.posts
+    @posts = @tag.posts.paginate(page:params[:page])
   end
 
   # GET /tags/new

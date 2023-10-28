@@ -26,7 +26,7 @@
     <p class="tags">
       <strong>Tags:</strong>
       <% post.tags.each do |tag| %>
-        <%= link_to tag.name, tag, class: "badge badge-primary mr-2" %>
+        <span style="color: black"><%= link_to tag.name, tag, class: "badge badge-primary mr-2", style: "color:black"%></span>
       <% end %>
     </p>
 
@@ -91,3 +91,8 @@
 
   </div>
 </div>
+<style>
+  *{
+      color: #2E2F30;
+  }
+</style>

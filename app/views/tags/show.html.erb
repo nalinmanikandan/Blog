@@ -1,10 +1,16 @@
-<p style="color: green"><%= notice %></p>
+<div class="container">
+  <p class="text-success"><%= notice %></p>
 
-<%= render @tag %>
+  <%= render @tag %>
 
-<div>
-  <%= link_to "Edit this tag", edit_tag_path(@tag) %> |
-  <%= link_to "Back to tags", tags_path %>
+  <div class="text-center mt-3">
+    <%= link_to "Edit this tag", edit_tag_path(@tag), class: "btn btn-primary float-left" %>
+    <%= link_to "Back to tags", tags_path, class: "btn btn-secondary float-right" %>
+  </div>
 
-  <%= button_to "Destroy this tag", @tag, method: :delete %>
+  <div class="text-center mt-3">
+    <%= button_to "Destroy this tag", @tag, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  </div>
 </div>
+
+
